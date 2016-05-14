@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use AppBundle\Entity\Product;
 use SamGunBundle\Entity\Demande;
 use SamGunBundle\Entity\Formation;
+use SamGunBundle\Entity\Salarie;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -136,6 +137,34 @@ class DefaultController extends Controller{
     return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $formation,'dem' => $demande ));
 
   }
+
+
+    /**
+    * @Route("/validate",name="validate")
+    */
+    public function valideAficheAction() {
+      $repository = $this->getDoctrine()->getRepository('SamGunBundle:Formation');
+      $formation = $repository->findAll();
+      $repository2 = $this->getDoctrine()->getRepository('SamGunBundle:Demande');
+      $demande = $repository2->findAll();
+      $repository3 = $this->getDoctrine()->getRepository('SamGunBundle:Salarie');
+      $salarie= $repository3->findAll();
+      //return $this->render('SamGunBundle:Default:formation.html.twig');
+      return $this->render('SamGunBundle:Default:validatorformation.html.twig',array( 'form' => $formation,'dem' => $demande,'salarie' => $salarie ));
+
+    }
+    /**
+    * @Route("/validate/{count}//{count2}/",name="validat")
+    */
+    public function valideAction($count,$count2) {
+      $repository = $this->getDoctrine()->getRepository('SamGunBundle:Demande');
+      $demande=$repository->findOneById($count);
+      $demande->setStatus($count2);
+
+      //return $this->render('SamGunBundle:Default:formation.html.twig');
+      return $this->render('SamGunBundle:Default:formation.html.twig');
+
+    }
 
   /**
   * @Route("/homepag/{count}/",name="myform")
