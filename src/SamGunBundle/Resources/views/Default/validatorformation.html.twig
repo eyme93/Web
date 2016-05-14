@@ -1,13 +1,13 @@
 {% extends 'SamGunBundle:Default:index.html.twig' %}
 {% block body %}
-  {%for Salarie in salairie  %}
+  {%for Salarie in salarie  %}
     {% if Salarie.superieurHierarchique == app.user.id %}
       {%for Demande in dem %}
         {% if Demande.idSalarie == Salarie.id %}
         {% for Formation in form %}
           {% if Demande.idFormation == Formation.id %}
-            <a href="{{ path('inscription', { 'count': "refuser" }) }}"> accepter</a>
-            <a href="{{ path('inscription', { 'count': "acepter" }) }}"> refuser </a>
+            <a href="{{ path('inscription', { 'count': "refuser",'count2': Demande.id }) }}"> accepter</a>
+            <a href="{{ path('inscription', { 'count': "acepter" ,'count2': Demande.id}) }}"> refuser </a>
           {% endif %}
         {% endfor %}
         {% endif %}
