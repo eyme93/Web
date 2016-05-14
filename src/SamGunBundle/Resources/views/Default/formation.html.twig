@@ -1,0 +1,80 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+
+
+
+{% block body %}
+<div class ="container">
+<section class="row">
+<div class = "col-md-offset-2 col-md-6">
+{%
+for
+Formation in form  %}
+
+<section class="formation" >
+
+    <section class="row">
+  <section class="row"id="afficheFormation">
+
+  <div class = "col-md-12">
+
+
+<p> pre-requis:{{Formation.prerequis}}</p>
+</div>
+<div class = "col-md-4">
+
+
+<p> duree:{{Formation.duree}}</p>
+</div>
+
+
+<div class = "col-md-4">
+
+
+<p> date:<time>{{Formation.duree}}</time></p>
+</div>
+<div class = "col-md-4">
+
+
+<p> cout:{{Formation.cout}}</p>
+</div>
+  </section>
+
+
+</section>
+
+
+<section class="row">
+<div class = "col-md-1">
+<p>contenu:<p>
+</div>
+<div class = "col-md-11">
+<p> {{Formation.contenu}}</p>
+</div>
+<div class = "col-md-offset-11 col-md-2">
+<a href="{{ path('inscription', { 'count': Formation.id , 'count2': app.user.id  }) }}""> TEST </a>
+
+</div>
+
+</section>
+</section >
+
+{% endfor %}
+
+  </div>
+  <div class = "col-md-4">
+      <h1> tableau de bord</h1>
+      {% for Demande in dem  %}
+        {% if Demande.idSalarie == app.user.id %}
+          {% for Formation in form %}
+            {% if Formation.id == Demande.idFormation %}
+              <p> Formation Souhaitée : {{Formation.nomFormation}} </br>
+                  Statut: {{Demande.status}}
+              </p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  </div>
+{% endblock %}

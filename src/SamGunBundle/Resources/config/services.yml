@@ -1,0 +1,4 @@
+services:
+#    sam_gun.example:
+#        class: SamGunBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

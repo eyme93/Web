@@ -1,0 +1,49 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+{% block body %}
+  <div class ="container">
+    <div class="row">
+      <h1 class="page-header col-md-offset-3" > Statistiques sur SamGun</h1>
+      <p class= "col-md-9  col-md-offset-1">
+        Cette page est réservé au salariés qui aimeraient voir et avoir quelques informations sur notre Entreprise SamGun </br>
+        Pour avoir quelques statistiques, il vous suffit de choisir parmis les options proposées et par la suite de cliquez sur "OK".
+      </p>
+    </div>
+    <div class = "row">
+      {{ form_start(form) }}
+      <div class = "col-md-4 col-sm-offset-1" >
+        {{ form_label(form.pfh)}}
+        {{ form_widget(form.pfh) }}
+        {{ form_errors(form.pfh) }}
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col-md-4 col-sm-offset-1" >
+        {{ form_label(form.ph) }}
+        {{ form_widget(form.ph) }}
+        {{ form_errors(form.ph) }}
+    </div>
+  </div>
+    <div class ="row">
+      <div class ="col-md-4 co
+      l-sm-offset-1">
+        {{ form_label(form.eff1_annee) }}
+        {{ form_widget(form.eff1_annee) }}
+        {{ form_errors(form.eff1_annee) }}
+      </div>
+    </div>
+    <div class = "row">
+      <div class ="col-md-4 col-sm-offset-1">
+        {{ form_label(form.eff2_annee) }}
+        {{ form_widget(form.eff2_annee) }}
+        {{ form_errors(form.eff2_annee) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class ="col-md-11 col-sm-offset-1">
+        {{ form_label(form.save) }}
+        {{ form_widget(form.save) }}
+      </div>
+    </div>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

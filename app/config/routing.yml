@@ -1,0 +1,11 @@
+sam_gun:
+    resource: "@SamGunBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+logout:
+    path: /logout
+    
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
