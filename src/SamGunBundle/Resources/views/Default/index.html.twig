@@ -27,10 +27,11 @@
               {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
                 <li><a href="/login">Login</a></li>
               {% endif %}
-                <li><a href="{{ path('admi') }}">admission</a></li>
+                <li><a href="{{ path('admi') }}">Admission</a></li>
               <li><a href="{{ path('homepag') }}">Formation</a></li>
               <li><a href="{{ path('forma') }}">Créer Formation</a></li>
-                <li><a href="{{ path('poste') }}">nous recrutons</a></li>
+                <li><a href="{{ path('poste') }}">Nous recrutons</a></li>
+                <li><a href="{{path('forum_index')}}"> Forum</a></li>
               <li><a href="/stat">Statistique</a></li>
               {% if is_granted('IS_AUTHENTICATED_FULLY')%}
                 <li><a href="/logout">Logout</a></li>
@@ -104,4 +105,3 @@
   </div>
 </body>
 </html>
-

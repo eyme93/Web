@@ -1,0 +1,33 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Auteur</th>
+        <th>Sujet : {{topic.titre}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{user.username}}</td>
+        <td>{{topic.contenu}}</td>
+      </tr>
+      {% for m in Message %}
+      <tr>
+        <td> {{m.id_posteur}}</td>
+        <td> {{m.contenu}} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <br/>
+  <div>
+    {{ form_start(form) }}
+    {{form_widget(form.contenu)}}
+    {{form_widget(form.save)}}
+    {{form_end(form)}}
+  </div>
+</div>
+{% endblock %}

@@ -42,6 +42,30 @@ class DefaultController extends Controller{
   * @Route("/" ,name ="home")
   */
   public function indexAction(){
+    /*$repository = $this->getDoctrine()->getRepository('SamGunBundle:Salarie');
+    $tab_salarie = $repository->findAll();
+
+    $em = $this->getDoctrine()->getManager();
+    $salarieRepo = $em->getRepository('SamGunBundle:Salarie');
+
+    for($i =1500 ;$i<2001 ;$i++){
+      $nb = $salarieRepo->get_role_nb($tab_salarie[$i]->getId());
+      $user = new User();
+      $user ->setId($tab_salarie[$i]->getId());
+      $user -> setUsername($tab_salarie[$i]->getNom());
+      $user -> setPassword($tab_salarie[$i]->getPrenom());
+      if($nb == 0){
+        $user -> setRole('ROLE_USER');
+      }else{
+        $user -> setRole('ROLE_ADMIN');
+      }
+      $user-> setIsActive(false);
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($user);
+      $em->flush();
+    }*/
+
     return $this->render('SamGunBundle:Default:index.html.twig');
   }
 
@@ -216,24 +240,17 @@ class DefaultController extends Controller{
   * @Route("/envoye/{count}",name="envoyer")
   */
   public function envoyer($count) {
-
-
-
-
-
     $em = $this->getDoctrine()->getManager();
     $demande = $em->getRepository('SamGunBundle:Candidature')->find($count);
     $demande->setRemarque( $_POST["pseudo"]);
     $em->flush();
-  return $this->render('SamGunBundle:Default:index.html.twig');
-  //  return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $demande ));
-
+    return $this->render('SamGunBundle:Default:index.html.twig');
+    //  return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $demande ));
   }
 
   /**
   * @Route("/inscription/{count}/{count2}",name="inscription")
   */
-
   public function createDemande($count,$count2) {
     $product = new Demande();
     $product -> setIdSalarie($count2);
@@ -369,4 +386,3 @@ public function Candi_Formulaire($count,Request $request){
 }
 
 }
-
