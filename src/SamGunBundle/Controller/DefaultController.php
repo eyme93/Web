@@ -15,6 +15,8 @@ use AppBundle\Entity\Product;
 use SamGunBundle\Entity\Demande;
 use SamGunBundle\Entity\Formation;
 use SamGunBundle\Entity\Salarie;
+use SamGunBundle\Entity\Candidature;
+use SamGunBundle\Entity\Poste;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -137,8 +139,28 @@ class DefaultController extends Controller{
     return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $formation,'dem' => $demande ));
 
   }
+  /**
+  * @Route("/poste",name="poste")
+  */
+  public function afficheposteAction() {
+    $repository = $this->getDoctrine()->getRepository('SamGunBundle:Poste');
+    $poste= $repository->findAll();
 
+    //return $this->render('SamGunBundle:Default:formation.html.twig');
+    return $this->render('SamGunBundle:Default:poste.html.twig',array( 'poste' => $poste));
 
+  }
+
+  /**
+  * @Route("/validation1",name="validation1")
+  */
+  public function valideCandidatureAction() {
+    $repository = $this->getDoctrine()->getRepository('SamGunBundle:Candidature');
+    $formation = $repository->findAll();
+    //return $this->render('SamGunBundle:Default:formation.html.twig');
+    return $this->render('SamGunBundle:Default:candidature.html.twig',array( 'cand' => $formation ));
+
+  }
     /**
     * @Route("/validate",name="validate")
     */
@@ -175,6 +197,36 @@ class DefaultController extends Controller{
     $demande=$repository->findOneById($count);
     //return $this->render('SamGunBundle:Default:formation.html.twig');
     return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $demande ));
+
+  }
+  /**
+  * @Route("/admi",name="admi")
+  */
+  public function afficheadmi() {
+
+    $repository = $this->getDoctrine()->getRepository('SamGunBundle:Candidature');
+    $demande=$repository->findAll();
+    //return $this->render('SamGunBundle:Default:formation.html.twig');
+    return $this->render('SamGunBundle:Default:admi.html.twig',array( 'cand' => $demande));
+
+  }
+
+
+  /**
+  * @Route("/envoye/{count}",name="envoyer")
+  */
+  public function envoyer($count) {
+
+
+
+
+
+    $em = $this->getDoctrine()->getManager();
+    $demande = $em->getRepository('SamGunBundle:Candidature')->find($count);
+    $demande->setRemarque( $_POST["pseudo"]);
+    $em->flush();
+  return $this->render('SamGunBundle:Default:index.html.twig');
+  //  return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $demande ));
 
   }
 
@@ -238,6 +290,83 @@ public function formation_Formulaire(Request $request){
     'form' => $form->createView(),
   ));
 }
+/**
+* @Route("/fposte/",name="fposte")
+*/
+public function Poste_Formulaire(Request $request){
+  // On crée un objet Advert
+  $formation= new Poste();
+  // On crée le FormBuilder grâce au service form factory
+  //$formBuilder = $this->get('form.factory')->createBuilder('form',   $formation);
+  $form = $this->createFormBuilder($formation)
+  ->add('metier',    TextType::class)
+  ->add('description',      TextareaType::class)
+  ->add('save',      SubmitType::class)
+  ->getForm();
+  $formation->setGestionnaire(0);
+  $form->handleRequest($request);
+  // On vérifie que les valeurs entrées sont correctes
+  // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+  if ($form->isValid()) {
+    // On l'enregistre notre objet $advert dans la base de données, par exemple
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($formation);
+    $em->flush();
+    $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+    // On redirige vers la page de visualisation de l'annonce nouvellement créée
+    return $this->redirect($this->generateUrl('fposte', array('id' => $formation->getId())));
+  }
+  // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
 
+  // À partir du formBuilder, on génère le formulaire
+  //$form = $formBuilder
+
+  // On passe la méthode createView() du formulaire à la vue
+  // afin qu'elle puisse afficher le formulaire toute seule
+  return $this->render('SamGunBundle:Default:createposte.html.twig', array(
+    'form' => $form->createView(),
+  ));
+}
+/**
+* @Route("/candidature/{count}",name="candi")
+*/
+public function Candi_Formulaire($count,Request $request){
+  // On crée un objet Advert
+  $formation= new Candidature();
+  // On crée le FormBuilder grâce au service form factory
+  //$formBuilder = $this->get('form.factory')->createBuilder('form',   $formation);
+  $form = $this->createFormBuilder($formation)
+  ->add('nom',    TextType::class)
+  ->add('prenom',    TextType::class)
+  ->add('mail',    TextType::class)
+  ->add('diplome',      TextareaType::class)
+  ->add('motivation',      TextareaType::class)
+  ->add('save',      SubmitType::class)
+  ->getForm();
+  $formation->setNomduposte($count);
+  $form->handleRequest($request);
+  // On vérifie que les valeurs entrées sont correctes
+  // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+  if ($form->isValid()) {
+    // On l'enregistre notre objet $advert dans la base de données, par exemple
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($formation);
+    $em->flush();
+    $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+    // On redirige vers la page de visualisation de l'annonce nouvellement créée
+    return $this->redirect($this->generateUrl('fposte', array('id' => $formation->getId())));
+  }
+  // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
+
+  // À partir du formBuilder, on génère le formulaire
+  //$form = $formBuilder
+
+  // On passe la méthode createView() du formulaire à la vue
+  // afin qu'elle puisse afficher le formulaire toute seule
+  return $this->render('SamGunBundle:Default:createcandidat.html.twig', array(
+    'form' => $form->createView(),
+  ));
+}
 
 }
+
