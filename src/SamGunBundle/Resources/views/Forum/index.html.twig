@@ -1,0 +1,33 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Catégories</th>
+        <th>Messages</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cat in Categories %}
+      <tr>
+        <td>
+          <h4><a href="/forum/topics?categorie={{cat.nom}}">{{cat.nom}}</a></h4>
+          <p>
+            {% for sc in SousCategories %}
+              {% if sc.idCategorie == cat.id %}
+                <a href="/forum/topics?categorie={{cat.nom}}&&sous_categorie={{sc.nom}}">{{sc.nom}}</a> |
+              {% endif %}
+            {% endfor %}
+          </p>
+        </td>
+        <td>Last_Message</td>
+        <td>john@example.com</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

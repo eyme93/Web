@@ -1,0 +1,43 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nouveau Topic</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ form_start(form) }}
+      <tr>
+        <td>Sujet/Titre</td>
+        <td>{{ form_widget(form.titre) }}</td>
+      </tr>
+      <tr>
+        <td>Categorie</td>
+        <td>{{ CatName }}</td>
+      </tr>
+      <tr>
+        <td>Sous-Categorie</td>
+        <td>
+          {{form_widget(form.id_SousCategories)}}
+        </td>
+      </tr>
+      <tr>
+        <td>Message</td>
+        <td>{{ form_widget(form.contenu) }}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.save) }}</td>
+      </tr>
+      <tr>
+        <td>{{ form_errors(form) }}</td>
+      </tr>
+      {{form_end(form) }}
+
+    </tbody>
+  </table>
+</div>
+{% endblock %}

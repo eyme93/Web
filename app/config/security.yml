@@ -31,8 +31,7 @@ security:
                 target: /
 
     access_control:
-      # require ROLE_ADMIN for /admin*
-      - { path: ^/stat, roles: ROLE_ADMIN }
+      - { path: ^/stat, roles: ROLE_USER }
 
 
             # activate different ways to authenticate

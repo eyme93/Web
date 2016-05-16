@@ -1,0 +1,34 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sujet</th>
+        <th>Messages</th>
+        <th>Last_Message</th>
+        <th>Creation</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tp in Topics %}
+      <tr>
+          <td><a href = "/forum/topic/article/{{tp.id}}">{{ tp.titre }}</a></td>
+          <td>1213131</td>
+          <td></td>
+          <td>{{tp.dateHeure|date("F jS \\a\\t g:ia") }} by {% for u in User %}
+              {% if tp.idCreateur == u.id %}
+                {{u.username}}
+              {% endif %}
+              {% endfor %}
+          </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td><a href="/forum/topic/nouveau?categorie={{categorie}}">Créer un Nouveau Topic</a></td>
+      </td>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
