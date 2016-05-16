@@ -1,0 +1,60 @@
+{% extends 'SamGunBundle:Default:index.html.twig' %}
+
+
+
+{% block body %}
+<div class ="container">
+<section class="row">
+<div class = "col-md-offset-2 col-md-6">
+{%
+for
+Poste in poste  %}
+
+<section class="formation" >
+
+    <section class="row">
+      <div class = "col-md-12">
+      <p> metier: {{Poste.metier}}</p>
+      </div>
+
+
+
+  </section>
+
+
+  <section class="row">
+    <div class = "col-md-2">
+      <p>Description:<p>
+    </div>
+    <div class = "col-md-10">
+    <p> {{Poste.description}}</p>
+    </div>
+    <div class = "col-md-offset-9 col-md-2">
+      <a  href="{{ path('candi', { 'count': Poste.metier}) }}"> Candidater </a>
+
+    </div>
+
+  </section>
+  <section class="row">
+    <div class = "col-md-12">
+    <p></p>
+    </div>
+</section >
+</section >
+<section class="row">
+  <div class = "col-md-12">
+  <p></p>
+  </div>
+</section >
+
+{% endfor %}
+
+  </div>
+  <div class = "col-md-4">
+      <h1> tableau de bord</h1>
+    <a  href="{{ path('validation1') }}"> Recruter </a>
+    <a href="{{ path('fposte') }}"> creer un poste </a>
+    </div>
+  </section>
+  </div>
+{% endblock %}
