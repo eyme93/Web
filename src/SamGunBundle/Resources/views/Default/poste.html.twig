@@ -52,7 +52,7 @@ Poste in poste  %}
   </div>
   <div class = "col-md-4">
       <h1> tableau de bord</h1>
-
+  <a href="{{ path('admi') }}">admission</a>
     {%if app.user %}
       <a  href="{{ path('validation1') }}"> Recruter </a>
     <a href="{{ path('fposte', { 'count': app.user.id}) }}"> creer un poste </a>
