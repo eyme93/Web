@@ -1,6 +1,6 @@
 <?php
 
-namespace SamGunBundle\Entity;
+namespace SamGunBundle\Repository;
 
 /**
  * UserRepository
