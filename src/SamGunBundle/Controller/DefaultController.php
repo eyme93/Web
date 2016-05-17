@@ -160,7 +160,7 @@ class DefaultController extends Controller{
     $repository2 = $this->getDoctrine()->getRepository('SamGunBundle:Poste');
     $poste = $repository2->findAll();
     //return $this->render('SamGunBundle:Default:formation.html.twig');
-    return $this->render('SamGunBundle:Default:candidature.html.twig',array( 'cand' => $formation ),array( 'poste' => $poste));
+    return $this->render('SamGunBundle:Default:candidature.html.twig',array( 'cand' => $formation ,'poste' => $poste));
 
   }
     /**

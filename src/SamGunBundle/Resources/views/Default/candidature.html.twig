@@ -6,17 +6,13 @@
 <div class ="container">
 <section class="row">
 <div class = "col-md-offset-2 col-md-6">
-    {%if app.user %}
-{%
-for
-Candidature in cand  %}
-{%
-for
-Poste in poste  %}
-{% if Candidature.remarque== NULL %}
-{% if Poste.metier== Candidature.nomduposte %}
-{% if Poste.gestionnaire==app.user.id %}
-<section class="formation" >
+
+{% for Candidature in cand  %}
+  {% for Poste in poste  %}
+    {% if Candidature.remarque== NULL %}
+    {% if Poste.metier== Candidature.nomduposte %}
+    {% if Poste.gestionnaire==app.user.id %}
+<section class="formation3" >
 
   <section class="row">
 
@@ -75,7 +71,7 @@ Poste in poste  %}
 {% endfor %}
 {% endfor %}
 
-{% endif %}
+
   </div>
 
   </section>

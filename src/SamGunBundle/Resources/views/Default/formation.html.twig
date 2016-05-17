@@ -3,22 +3,24 @@
 
 
 {% block body %}
+
 <div class ="container">
-<section class="row">
-<div class = "col-md-offset-2 col-md-6">
+  <section class="row">
+  <div class = "col-md-offset-2 col-md-6">
+
 {%
 for
 Formation in form  %}
 
-<section class="formation" >
+<section class="formation2" >
 
     <section class="row">
 
 
-  <div class = "col-md-12">
+      <div class = "col-md-12">
 
 
-<p> pre-requis:{{Formation.prerequis}}</p>
+        <p> pre-requis:{{Formation.prerequis}}</p>
 </div>
 <div class = "col-md-4">
 
@@ -44,20 +46,24 @@ Formation in form  %}
 
 
 <section class="row">
-<div class = "col-md-1">
+<div class = "col-md-2">
 <p>contenu:<p>
 </div>
-<div class = "col-md-11">
+<div class = "col-md-10">
 <p> {{Formation.contenu}}</p>
 </div>
-<div class = "col-md-offset-11 col-md-2">
+<div class = "col-md-offset-10 col-md-2">
 <a href="{{ path('inscription', { 'count': Formation.id , 'count2': app.user.id  }) }}""> TEST </a>
 
 </div>
 
 </section>
+</section>
+<section class="row">
+  <div class = "col-md-12">
+  <p></p>
+  </div>
 </section >
-
 {% endfor %}
 
   </div>
@@ -74,6 +80,8 @@ Formation in form  %}
           {% endfor %}
         {% endif %}
       {% endfor %}
+      <a href="{{ path('validate') }}""> gere les formation </a>
+
     </div>
   </section>
   </div>
