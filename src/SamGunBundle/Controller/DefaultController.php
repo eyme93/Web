@@ -42,30 +42,6 @@ class DefaultController extends Controller{
   * @Route("/" ,name ="home")
   */
   public function indexAction(){
-    /*$repository = $this->getDoctrine()->getRepository('SamGunBundle:Salarie');
-    $tab_salarie = $repository->findAll();
-
-    $em = $this->getDoctrine()->getManager();
-    $salarieRepo = $em->getRepository('SamGunBundle:Salarie');
-
-    for($i =1500 ;$i<2001 ;$i++){
-      $nb = $salarieRepo->get_role_nb($tab_salarie[$i]->getId());
-      $user = new User();
-      $user ->setId($tab_salarie[$i]->getId());
-      $user -> setUsername($tab_salarie[$i]->getNom());
-      $user -> setPassword($tab_salarie[$i]->getPrenom());
-      if($nb == 0){
-        $user -> setRole('ROLE_USER');
-      }else{
-        $user -> setRole('ROLE_ADMIN');
-      }
-      $user-> setIsActive(false);
-
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($user);
-      $em->flush();
-    }*/
-
     return $this->render('SamGunBundle:Default:index.html.twig');
   }
 
@@ -181,8 +157,10 @@ class DefaultController extends Controller{
   public function valideCandidatureAction() {
     $repository = $this->getDoctrine()->getRepository('SamGunBundle:Candidature');
     $formation = $repository->findAll();
+    $repository2 = $this->getDoctrine()->getRepository('SamGunBundle:Poste');
+    $poste = $repository2->findAll();
     //return $this->render('SamGunBundle:Default:formation.html.twig');
-    return $this->render('SamGunBundle:Default:candidature.html.twig',array( 'cand' => $formation ));
+    return $this->render('SamGunBundle:Default:candidature.html.twig',array( 'cand' => $formation ),array( 'poste' => $poste));
 
   }
     /**
@@ -240,17 +218,24 @@ class DefaultController extends Controller{
   * @Route("/envoye/{count}",name="envoyer")
   */
   public function envoyer($count) {
+
+
+
+
+
     $em = $this->getDoctrine()->getManager();
     $demande = $em->getRepository('SamGunBundle:Candidature')->find($count);
     $demande->setRemarque( $_POST["pseudo"]);
     $em->flush();
-    return $this->render('SamGunBundle:Default:index.html.twig');
-    //  return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $demande ));
+  return $this->render('SamGunBundle:Default:index.html.twig');
+  //  return $this->render('SamGunBundle:Default:formation.html.twig',array( 'form' => $demande ));
+
   }
 
   /**
   * @Route("/inscription/{count}/{count2}",name="inscription")
   */
+
   public function createDemande($count,$count2) {
     $product = new Demande();
     $product -> setIdSalarie($count2);
@@ -308,10 +293,10 @@ public function formation_Formulaire(Request $request){
   ));
 }
 /**
-* @Route("/fposte/",name="fposte")
+* @Route("/fposte/{count}",name="fposte")
 */
-public function Poste_Formulaire(Request $request){
-  // On crée un objet Advert
+public function Poste_Formulaire(Request $request,$count){
+  // On crée un objet Advert){
   $formation= new Poste();
   // On crée le FormBuilder grâce au service form factory
   //$formBuilder = $this->get('form.factory')->createBuilder('form',   $formation);
@@ -320,18 +305,18 @@ public function Poste_Formulaire(Request $request){
   ->add('description',      TextareaType::class)
   ->add('save',      SubmitType::class)
   ->getForm();
-  $formation->setGestionnaire(0);
+  $formation->setGestionnaire($count);
   $form->handleRequest($request);
   // On vérifie que les valeurs entrées sont correctes
   // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-  if ($form->isValid()) {
+  if ($form->isSubmitted() && $form->isValid()) {
     // On l'enregistre notre objet $advert dans la base de données, par exemple
     $em = $this->getDoctrine()->getManager();
     $em->persist($formation);
     $em->flush();
     $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
     // On redirige vers la page de visualisation de l'annonce nouvellement créée
-    return $this->redirect($this->generateUrl('fposte', array('id' => $formation->getId())));
+    return $this->redirectToRoute('home');
   }
   // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
 
@@ -371,7 +356,7 @@ public function Candi_Formulaire($count,Request $request){
     $em->flush();
     $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
     // On redirige vers la page de visualisation de l'annonce nouvellement créée
-    return $this->redirect($this->generateUrl('fposte', array('id' => $formation->getId())));
+      return $this->redirectToRoute('home');
   }
   // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
 
@@ -386,3 +371,4 @@ public function Candi_Formulaire($count,Request $request){
 }
 
 }
+

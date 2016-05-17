@@ -9,7 +9,12 @@
 {%
 for
 Candidature in cand  %}
-
+{%
+for
+Poste in poste  %}
+{% if Candidature.remarque== NULL %}
+{% if Poste.metier== Candidature.nomduposte %}
+{% if Poste.gestionnaire==app.user.id %}
 <section class="formation" >
 
   <section class="row">
@@ -63,6 +68,10 @@ Candidature in cand  %}
   <p></p>
   </div>
 </section >
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
 {% endfor %}
 
   </div>
@@ -70,3 +79,4 @@ Candidature in cand  %}
   </section>
   </div>
 {% endblock %}
+
