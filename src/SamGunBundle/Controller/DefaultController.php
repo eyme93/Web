@@ -237,17 +237,11 @@ class DefaultController extends Controller{
   */
 
   public function createDemande($count,$count2) {
-    $product = new Demande();
-    $product -> setIdSalarie($count2);
-    $product ->setIdFormation($count);
-    $product ->setStatus('Attente');
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($product);
-    $em->flush();
+
 
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('SamGunBundle:Demande')->find($count2);
-        $demande->setRemarque( $count);
+        $demande->setStatus( $count);
         $em->flush();
     //return $this->render('SamGunBundle:Default:formation.html.twig');
     return $this->render('SamGunBundle:Default:index.html.twig');
