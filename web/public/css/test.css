@@ -13,8 +13,39 @@
 }
 .formation{
 
-
+background-color:#CCCCCC;
 border: 3px blue groove;
 
 }
+.formation2{
 
+background-color:#CCCCCC;
+border: 3px red groove;
+
+}
+.formation3{
+
+background-color:#CCCCCC;
+border: 3px green groove;
+
+}
+#valide{
+  text-align: center;
+  border: black 2px solid;
+  border-radius: 6px;
+  background-color: green;
+  color: white;
+}
+#nonvalide{
+  text-align: center;
+  border: black 2px solid;
+  border-radius: 6px;
+  background-color: red;
+  color: white;
+}
+#formation3{
+
+background-color:#CCCCCC;
+border: 3px green groove;
+
+}
