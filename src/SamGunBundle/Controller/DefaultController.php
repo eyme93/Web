@@ -244,6 +244,11 @@ class DefaultController extends Controller{
     $em = $this->getDoctrine()->getManager();
     $em->persist($product);
     $em->flush();
+
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('SamGunBundle:Demande')->find($count2);
+        $demande->setRemarque( $count);
+        $em->flush();
     //return $this->render('SamGunBundle:Default:formation.html.twig');
     return $this->render('SamGunBundle:Default:index.html.twig');
 

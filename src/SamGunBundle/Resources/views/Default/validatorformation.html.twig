@@ -6,8 +6,43 @@
         {% if Demande.idSalarie == Salarie.id %}
         {% for Formation in form %}
           {% if Demande.idFormation == Formation.id %}
-            <a href="{{ path('inscription', { 'count': "refuser",'count2': Demande.id }) }}"> accepter</a>
-            <a href="{{ path('inscription', { 'count': "acepter" ,'count2': Demande.id}) }}"> refuser </a>
+          <section class="row">
+          <div class = "col-md-offset-2 col-md-6">
+          <section class="row" id="formation3">
+          <div class = "col-md-12">
+          <p> nom prenom : {{Salarie.nom}}  {{Salarie.prenom}}</p>
+          </div>
+          <div class = "col-md-12">
+          <p> Formation demandé: {{Salarie.nom}}  {{Salarie.prenom}}</p>
+          </div>
+          <div class = "col-md-6">
+          <p> date: {{Salarie.nom}}  {{Salarie.prenom}}</p>
+          </div>
+          <div class = "col-md-6">
+          <p> durée: {{Salarie.nom}}  {{Salarie.prenom}}</p>
+          </div>
+          <div class = "col-md-2">
+          <p> motivation:</p>
+          </div>
+          <div class = "col-md-10">
+          <p> {{Salarie.nom}}  {{Salarie.prenom}}</p>
+          </div>
+
+          <div class = "col-md-6" id="valide">
+          <a href="{{ path('inscription', { 'count': "acepter",'count2': Demande.id }) }}"> accepter</a>
+          </div>
+          <div class = "col-md-6" id="nonvalide">
+          <a href="{{ path('inscription', { 'count': "refuser",'count2': Demande.id}) }}"> refuser </a>
+          </div>
+
+
+
+              </section >
+              <div class = "col-md-12">
+              <p></p>
+              </div>
+            </div>
+          </section >
           {% endif %}
         {% endfor %}
         {% endif %}
