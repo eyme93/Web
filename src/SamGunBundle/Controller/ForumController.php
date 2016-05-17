@@ -20,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
+use Symfony\Component\Validator\Constraints\DateTime;
+
 class ForumController extends Controller
 {
 
@@ -32,8 +34,19 @@ class ForumController extends Controller
     $repository2 = $this->getDoctrine()->getRepository('SamGunBundle:Forum\SousCategories');
     $SousCategories = $repository2->findAll();
 
+    $nb_array = array();
+    $repoTopics = $this->getDoctrine()->getRepository('SamGunBundle:Forum\Topics');
+    $repoMessage = $this->getDoctrine()->getRepository('SamGunBundle:Forum\Message');
+    for($i=0;$i<sizeof($Categories);$i++){
+      $messbycat = $repoMessage->getbymessage($Categories[$i]->getId());
+      $topicsbycat = $repoTopics->getnbTopicsbycat($Categories[$i]->getId());
+      $mess = $messbycat + $topicsbycat;
+      $c = (object) array('id_categorie'=> $Categories[$i]->getId() ,'nb_messages'=>$mess);
+      array_push($nb_array,$c);
+    }
+    //var_dump($nb_array);
 
-    return $this->render('SamGunBundle:Forum:index.html.twig',array( 'Categories' => $Categories,'SousCategories' => $SousCategories ));
+    return $this->render('SamGunBundle:Forum:index.html.twig',array( 'Categories' => $Categories,'SousCategories' => $SousCategories,'Mess' => $nb_array ));
 
   }
 
@@ -87,7 +100,7 @@ class ForumController extends Controller
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-      print_r($c->id_SousCategories);
+      //print_r($c->id_SousCategories);
       $topic->setTitre($c->titre);
       $topic->setContenu($c->contenu);
       $date = new \DateTime('now');
@@ -135,6 +148,9 @@ class ForumController extends Controller
 
     $repoTopics = $this->getDoctrine()->getRepository('SamGunBundle:Forum\Topics');
 
+
+
+
     if($get_souscategorie){
       $repoSousCategorie = $this->getDoctrine()->getRepository('SamGunBundle:Forum\SousCategories');
       $id_SousCategories = $repoSousCategorie->get_id_by_name($get_souscategorie);
@@ -147,6 +163,7 @@ class ForumController extends Controller
     $topics = array();
     $user = array();
     $length = sizeof($Result);
+
     for($i=0;$i<$length;$i++){
       if ($Result[$i] instanceof Topics){
         array_push($topics,$Result[$i]);
@@ -154,10 +171,32 @@ class ForumController extends Controller
         array_push($user,$Result[$i]);
       }
     }
+
     $test = $id_categories[0];
     //$c = (object) array('id_categorie' => $id_categories,'id_souscategorie' => $id_souscategorie);
-    print_r($test);
-    return $this->render('SamGunBundle:Forum:topics_view.html.twig',array('Topics' => $topics , 'User' => $user ,'categorie' => $test['id']) );
+    //print_r($test);
+
+    $repoMessage = $this->getDoctrine()->getRepository('SamGunBundle:Forum\Message');
+    $nb_array = array();
+    for($i=0;$i<sizeof($topics);$i++){
+      $messbytopic = $repoMessage->getnbmessbyTopic($topics[$i]);
+      $mess = $messbytopic + 1;
+
+      $last_m = $repoMessage->getLastMessagebyId($topics[$i]);
+      $date ;
+      if($last_m){
+        $date = $last_m[0]->getDateHeurePost();
+        $c = (object) array('id_topic'=> $topics[$i]->getId() ,'nb_messages'=>$mess ,'last_m' => $date);
+      }else{
+        $tt  = "00-00-0000";
+        $date = \DateTime::createFromFormat('d-m-Y',$tt);
+        $c = (object) array('id_topic'=> $topics[$i]->getId() ,'nb_messages'=>$mess ,'last_m' => $date);
+
+      }
+      array_push($nb_array,$c);
+    }
+
+    return $this->render('SamGunBundle:Forum:topics_view.html.twig',array('Topics' => $topics , 'User' => $user ,'categorie' => $test['id'] ,'Mess' => $nb_array) );
   }
 
 
@@ -169,7 +208,6 @@ class ForumController extends Controller
     if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
       throw $this->createAccessDeniedException();
     }
-    $user = $this->getUser();
 
     $repoTopics = $this->getDoctrine()->getRepository('SamGunBundle:Forum\Topics');
     $Topic = $repoTopics->findOneById($id);
@@ -185,11 +223,13 @@ class ForumController extends Controller
 
     for($i=0;$i<sizeof($AllMessage);$i++){
       $user2 = $repoTopics->findOneById($AllMessage[$i]->getIdPosteur());
+      //print_r($user2);
       $c = (object) array('contenu'=> $AllMessage[$i]->getContenu() ,'id_posteur'=>$user2->getUsername());
       array_push($c_tab,$c);
     }
 
 
+    $user = $this->getUser();
 
     //var_dump($Topic);
 
@@ -208,6 +248,8 @@ class ForumController extends Controller
       $message->setIdTopic($Topic->getId());
       $date = new \DateTime('now');
       $message->setDateHeurePost($date);
+      //print_r("Debut ");
+      //print_r($user->getId());
       $message->setIdPosteur($user->getId());
       $em = $this->getDoctrine()->getManager();
       $em->persist($message);

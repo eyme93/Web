@@ -38,13 +38,37 @@ class SalarieRepository extends \Doctrine\ORM\EntityRepository
     return $nb;
   }
 
+
+  public function get_role_nb($id){
+    $query = $this->getEntityManager()->createQuery('SELECT COUNT(s) FROM SamGunBundle:Salarie s WHERE s.superieurHierarchique = ?1');
+    $query->setParameters(array(
+      1=> $id,
+    ));
+    $nb = $query->getSingleScalarResult();
+    return $nb;
+  }
+
   public function get_nb_salaire(){
     $query = $this->getEntityManager()->createQuery('SELECT COUNT(s) FROM SamGunBundle:Salarie s WHERE s.salaire > 2000');
     $nb = $query->getSingleScalarResult();
     return $nb;
   }
 
-  public function get_nb_handicapes(){
+  public function get_nb_employe($statut){
+    $query = $this->getEntityManager()->createQuery('SELECT COUNT(s) FROM SamGunBundle:Salarie s WHERE s.typeContrat = ?1');
+    $query->setParameters(array(
+      1 => $statut,
+    ));
+    $nb = $query->getSingleScalarResult();
+    return $nb;
+  }
 
+  public function get_nb_employe_salaire($salaire){
+    $query = $this->getEntityManager()->createQuery('SELECT COUNT(s) FROM SamGunBundle:Salarie s WHERE s.salaire > ?1');
+    $query->setParameters(array(
+      1 => $salaire
+    ));
+    $nb = $query->getSingleScalarResult();
+    return $nb;
   }
 }

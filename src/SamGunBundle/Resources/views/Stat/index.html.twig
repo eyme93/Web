@@ -8,42 +8,80 @@
         Pour avoir quelques statistiques, il vous suffit de choisir parmis les options proposées et par la suite de cliquez sur "OK".
       </p>
     </div>
-    <div class = "row">
       {{ form_start(form) }}
-      <div class = "col-md-4 col-sm-offset-1" >
-        {{ form_label(form.pfh)}}
-        {{ form_widget(form.pfh) }}
-        {{ form_errors(form.pfh) }}
+    <p>
+      <div class = "row">
+        <div class = "col-md-4 col-sm-offset-1" >
+          {{ form_label(form.pfh)}}
+          {{ form_widget(form.pfh) }}
+          {{ form_errors(form.pfh) }}
+        </div>
       </div>
-    </div>
-    <div class = "row">
-      <div class = "col-md-4 col-sm-offset-1" >
-        {{ form_label(form.ph) }}
-        {{ form_widget(form.ph) }}
-        {{ form_errors(form.ph) }}
-    </div>
-  </div>
-    <div class ="row">
-      <div class ="col-md-4 co
-      l-sm-offset-1">
-        {{ form_label(form.eff1_annee) }}
-        {{ form_widget(form.eff1_annee) }}
-        {{ form_errors(form.eff1_annee) }}
+    </p>
+    </br>
+    <p>
+      <div class = "row">
+        <div class = "col-md-3 col-sm-offset-1" >
+          {{ form_label(form.pcdd) }}
+          {{ form_widget(form.pcdd) }}
+          {{ form_errors(form.pcdd) }}
+        </div>
+        <div class = "col-md-3 " >
+          {{ form_label(form.pcdi) }}
+          {{ form_widget(form.pcdi) }}
+          {{ form_errors(form.pcdi) }}
+        </div>
+        <div class = "col-md-3 " >
+          {{ form_label(form.pcs) }}
+          {{ form_widget(form.pcs) }}
+          {{ form_errors(form.pcs) }}
+        </div>
       </div>
-    </div>
-    <div class = "row">
-      <div class ="col-md-4 col-sm-offset-1">
-        {{ form_label(form.eff2_annee) }}
-        {{ form_widget(form.eff2_annee) }}
-        {{ form_errors(form.eff2_annee) }}
+    </p>
+    </br>
+    <p>
+      <div class = "row">
+        <div class = "col-md-3 col-sm-offset-1" >
+          {{ form_label(form.ps2) }}
+          {{ form_widget(form.ps2) }}
+          {{ form_errors(form.ps2) }}
+        </div>
+        <div class = "col-md-3 " >
+          {{ form_label(form.ps5) }}
+          {{ form_widget(form.ps5) }}
+          {{ form_errors(form.ps5) }}
+        </div>
+        <div class = "col-md-3 " >
+          {{ form_label(form.ps10) }}
+          {{ form_widget(form.ps10) }}
+          {{ form_errors(form.ps10) }}
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class ="col-md-11 col-sm-offset-1">
-        {{ form_label(form.save) }}
-        {{ form_widget(form.save) }}
+    </p>
+    </br>
+    <p>
+      <div class ="row">
+        <div class ="col-md-3 col-sm-offset-1">
+          {{ form_label(form.eff1_annee) }}
+          {{ form_widget(form.eff1_annee) }}
+          {{ form_errors(form.eff1_annee) }}
+        </div>
+        <div class ="col-md-3 col-sm-offset">
+          {{ form_label(form.eff2_annee) }}
+          {{ form_widget(form.eff2_annee) }}
+          {{ form_errors(form.eff2_annee) }}
+        </div>
       </div>
-    </div>
+    </p>
+    </br>
+    <p>
+      <div class="row">
+        <div class ="col-md-11 col-sm-offset-1">
+          {{ form_label(form.save) }}
+          {{ form_widget(form.save) }}
+        </div>
+      </div>
+    </p>
     {{ form_end(form) }}
   </div>
 {% endblock %}

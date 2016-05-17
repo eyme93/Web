@@ -10,4 +10,47 @@ namespace SamGunBundle\Repository\Forum;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  public function getbymessage($id_categorie){
+    $query = $this->getEntityManager()->createQuery(
+      'SELECT COUNT(m) FROM SamGunBundle:Forum\Topics t , SamGunBundle:Forum\Topics_Categories tc ,
+      SamGunBundle:Forum\Message m
+       WHERE  t.id = tc.idTopic AND m.idTopic = t.id AND tc.idCategorie = ?1');
+
+    $query->setParameters(array(
+      1 => $id_categorie,
+    ));
+    //$query = $this->getEntityManager()->createQuery('SELECT t FROM SamGunBundle:Forum\Topics t');
+
+    $nb = $query->getSingleScalarResult();
+    return $nb;
+  }
+
+  public function getnbmessbyTopic($id_topic){
+    $query = $this->getEntityManager()->createQuery(
+      'SELECT COUNT(m) FROM SamGunBundle:Forum\Message m
+       WHERE  m.idTopic = ?1 ');
+
+    $query->setParameters(array(
+      1 => $id_topic,
+    ));
+    //$query = $this->getEntityManager()->createQuery('SELECT t FROM SamGunBundle:Forum\Topics t');
+
+    $nb = $query->getSingleScalarResult();
+    return $nb;
+  }
+
+  public function getLastMessagebyId($id_topic){
+    $query = $this->getEntityManager()->createQuery(
+      'SELECT m FROM SamGunBundle:Forum\Message m WHERE m.idTopic = ?1 ORDER BY m.dateHeurePost DESC' );
+
+    $query->setParameters(array(
+      1 => $id_topic,
+    ));
+    //$query = $this->getEntityManager()->createQuery('SELECT t FROM SamGunBundle:Forum\Topics t');
+
+    $nb = $query->getResult();
+    return $nb;
+  }
+
 }

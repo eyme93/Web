@@ -27,17 +27,17 @@
               {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
                 <li><a href="/login">Login</a></li>
               {% endif %}
-    {%if app.user %}
-              <li><a href="{{ path('homepag') }}">Formation</a></li>
-
-              <li><a href="{{ path('forma') }}">Créer Formation</a></li>
-                  {% endif %}
+			        {% if app.user %}
+                <li><a href="{{ path('homepag') }}">Formation</a></li>
+                <li><a href="{{ path('forma') }}">Créer Formation</a></li>
+              {% endif %}
                 <li><a href="{{ path('poste') }}">Nous recrutons</a></li>
+                <li><a href="/stat">Statistiques</a></li>
                 <li><a href="{{path('forum_index')}}"> Forum</a></li>
-              <li><a href="/stat">Statistique</a></li>
               {% if is_granted('IS_AUTHENTICATED_FULLY')%}
                 <li><a href="/logout">Logout</a></li>
               {% endif %}
+
               <!--<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -59,52 +59,23 @@
     <h1>Bienvenue Sur SamGun</h1>
   </div>
   {% block body %}
-  <div class ="container">
-    <div class ="row">
-      <div class="col-md-offset-1" >
-        <h1>SamGun : L'Entreprise qui remet au goût du jour la vie Sociale.</h1>
-        <p id="presentation_entreprise">
-          Marre de restez devant vos écrans, parlant à vos amis seulement à travers vos smartphones</br>
-          SamGun vous permet d'organiser des soirées ou evénèment avec vos amis mais pas seulement </br>
-          A l'aide de nos différents agents dans toutes les régions de France, organiser une soirée ne sera plus du tout difficile </br>
-          Non seulement vous allez faire des soirées mais ça sera des grandes soirées.</br>
-        </p>
-        <p>
-
-        </p>
+    <div class ="container">
+      <div class ="row">
+        <div class="col-md-offset-1" >
+          <h1>SamGun : L'Entreprise qui remet au goût du jour la vie Sociale.</h1>
+          <p id="presentation_entreprise" class="col-md-offset-1">
+              Marre de restez devant vos écrans, parlant à vos amis seulement à travers vos smartphones</br>
+              SamGun vous permet d'organiser des soirées ou evénèment avec vos amis mais pas seulement </br>
+              A l'aide de nos différents agents dans toutes les régions de France, organiser une soirée ne sera plus du tout difficile </br>
+              Non seulement vous allez faire des soirées mais ça sera des grandes soirées.</br>
+          </p>
+        </div>
+      </div>
+    </br>
+      <div class="row">
+        <div class = "col-md-offset-1 col-md-4">
+          <img src="public/images/social_life.jpg" alt="Social Life" />
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class = "col-md-offset-1">
-        <h2>Gestion Des Formations</h2>
-        <article>
-          <p>
-            Vous trouverez ici différentes formations pour grandir au sein de l'entreprise SamGun </br>
-            Il y aura une description de chaque formation proposées.
-            Vous pouvez choisir une formation que vous voudriez effectué en allant sur la page.</br>
-            Votre superieur Hierarchique devra valider votre demande afin de commencer votre Formation.
-            Cliquez ici pour y accéder
-          </p>
-        </article>
-      </div>
-    </div>
-    <section class = "row">
-      <div class="col-md-offset-1">
-        <h2>Statistiques de L'Entreprise</h2>
-        <article>
-          <p>
-            Vous trouverez sur cette page différents statistiques sur l'entreprise SamGun.</br>
-            Vous aurez la possibilité de choisir les informations que vous voudriez avoir sur l'entreprise.</br>
-            <a href="{{ path('stat_index') }}" >Il vous suffit de cliquez ici pour y accéder</a>
-          </p>
-        </article>
-      </div>
-    </section>
-    {% endblock %}
-    <footer class ="row">
-      {% block footer %} <h6 class= "col-md-6  col-md-offset-4"></h6>{% endblock %}
-    </footer>
-  </div>
-</body>
-</html>
-
+  {% endblock %}

@@ -2,9 +2,8 @@
 {% block body %}
   <div class ="container">
     <header class="row">
-      <h1 class ="col-md-offset-4 col-md-4">Statistiques Demandé</h1>
+      <h1 class ="col-md-offset-4 col-md-6">Statistiques Demandés</h1>
     </header>
-    <div>
     {% if tableau1 is empty %}
       <div class = "row" >
         <div class = "col-md-11 col-md-offset-1">
@@ -12,20 +11,27 @@
         </div>
       </div>
     {% else %}
-    {% for t1 in tableau1 %}
-        <div class = "row" >
-          <div class = "col-md-11 col-md-offset-1">
-            <h3>{{t1.title}}</h3>
-          </div>
-        </div>
-        <div class = "row" >
-          <div class = "col-md-2 col-md-offset-1">
+    <div class = "row">
+    <table class="table table-striped" >
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Valeur</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t1 in tableau1 %}
+          <tr >
+            <td><h3>{{t1.title}}</h3></td>
+            <td>
             {{t1.value}}
-          </div>
-        </div>
+            {% if t1.p %}
+                  %
+              {% endif %}
+          </td>
+        </tr>
       {% endfor %}
+    </div>
     {% endif %}
-  </div>
-
 </diV>
 {% endblock %}

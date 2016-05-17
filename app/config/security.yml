@@ -12,6 +12,9 @@ security:
                 class: SamGunBundle:User
                 property: username
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
     firewalls:
@@ -32,7 +35,7 @@ security:
 
     access_control:
       - { path: ^/stat, roles: ROLE_USER }
-
+      - {path: ^/forum, roles: ROLE_USER }
 
             # activate different ways to authenticate
 

@@ -43,4 +43,19 @@ class TopicsRepository extends \Doctrine\ORM\EntityRepository{
     $topic = $query->getResult();
     return $topic;
   }
+
+  public function getnbTopicsbycat($id_categorie){
+    $query = $this->getEntityManager()->createQuery(
+      'SELECT COUNT(t) FROM SamGunBundle:Forum\Topics t , SamGunBundle:Forum\Topics_Categories tc
+       WHERE  t.id = tc.idTopic AND tc.idCategorie = ?1');
+
+    $query->setParameters(array(
+      1 => $id_categorie,
+    ));
+    //$query = $this->getEntityManager()->createQuery('SELECT t FROM SamGunBundle:Forum\Topics t');
+
+    $nb = $query->getSingleScalarResult();
+    return $nb;
+  }
+
 }

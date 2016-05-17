@@ -7,7 +7,6 @@
       <tr>
         <th>Catégories</th>
         <th>Messages</th>
-        <th>Time</th>
       </tr>
     </thead>
     <tbody>
@@ -23,8 +22,13 @@
             {% endfor %}
           </p>
         </td>
-        <td>Last_Message</td>
-        <td>john@example.com</td>
+        <td>
+        {% for m in Mess %}
+          {% if m.id_categorie == cat.id %}
+            {{m.nb_messages}}
+          {% endif %}
+        {% endfor %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

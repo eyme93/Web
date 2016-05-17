@@ -15,8 +15,12 @@
       {% for tp in Topics %}
       <tr>
           <td><a href = "/forum/topic/article/{{tp.id}}">{{ tp.titre }}</a></td>
-          <td>1213131</td>
-          <td></td>
+          {% for m in Mess %}
+            {% if m.id_topic == tp.id %}
+              <td>{{ m.nb_messages }}</td>
+              <td>{{ m.last_m|date("m/d/Y")}}</td>
+            {% endif %}
+          {% endfor %}
           <td>{{tp.dateHeure|date("F jS \\a\\t g:ia") }} by {% for u in User %}
               {% if tp.idCreateur == u.id %}
                 {{u.username}}
